@@ -1,18 +1,25 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+    <list-item v-for="(item, index) of todoList" :key="index" :item="item" />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
+import { defineComponent, computed } from 'vue';
+import { useStore } from 'vuex';
+import ListItem from "@/components/ListItem.vue";
 
 export default defineComponent({
   name: 'Home',
   components: {
-    HelloWorld,
+    ListItem
   },
+  setup() {
+    const store = useStore();
+
+    return {
+        todoList: computed(() => store.getters.todoList)
+    };
+  }
 });
 </script>
